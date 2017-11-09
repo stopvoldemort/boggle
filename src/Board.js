@@ -8,10 +8,8 @@ const Board = ({ letters }) => {
 
   return (
     <div className="container">
-      <div className="row">
-        <div className="board col-sm-8">
-          {letterDivs}
-        </div>
+      <div className="board col-sm-8">
+        {letterDivs}
       </div>
     </div>
   )

@@ -6,9 +6,9 @@ class Hud extends Component {
 
   render() {
     return(
-      <div>
+      <div className="hud">
         <Board letters={this.props.letters} />
-        <WordList />
+        <WordList words={this.props.words}/>
       </div>
     )
   }

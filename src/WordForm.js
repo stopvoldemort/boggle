@@ -3,7 +3,8 @@ import React from 'react'
 export default class WordForm extends React.Component {
 
   state = {
-    input: ''
+    input: '',
+    showError: false
   }
 
   handleSubmit = (event) => {
@@ -15,10 +16,25 @@ export default class WordForm extends React.Component {
   }
 
   handleChange = (event) => {
+    const letter = event.target.value
+    if(!this.checkIfLetterIsOnBoard(letter)){
+      this.setState({
+        showError: "The letter isnt there!"
+      })
+      return null;
+    }
     this.setState({
-      input: event.target.value
+      input: letter,
+      showError: false
     })
   }
+
+  checkIfLetterIsOnBoard = (letter) => {
+    console.log("includes", this.props.letters.includes(letter))
+    this.props.letters.includes(letter)
+  }
+
+
 
   render = () => {
     return(
@@ -28,6 +44,7 @@ export default class WordForm extends React.Component {
             <input type='text' onChange={this.handleChange} value={this.state.input}/>
             <button type='submit'>Enter</button>
           </form>
+          <p>{this.state.showError}</p>
         </div>
       </div>
     )

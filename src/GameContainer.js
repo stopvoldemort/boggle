@@ -10,7 +10,7 @@ class GameContainer extends Component {
 
 
   addWord = (word) => {
-    const newWordArray = this.state.words.concat(word)
+    const newWordArray = [word, ...this.state.words]
     this.setState({
       words: newWordArray
     })
@@ -18,9 +18,9 @@ class GameContainer extends Component {
 
   render() {
     return(
-      <div>
-        <Hud letters={this.props.letters} />
-        <WordForm addWord={this.addWord}/>
+      <div >
+        <Hud letters={this.props.letters} words={this.state.words} />
+        <WordForm addWord={this.addWord} letters={this.props.letters}/>
       </div>
     )
   }

@@ -9,11 +9,16 @@ body {
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
   grid-auto-rows: minmax(100px, auto);
+  float: left;
+}
+
+.hud {
+  text-align: center;
 }
 
 .letter {
   border: 2px solid black;
-  font-size: 40px;
+  font-size: 55px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,6 +27,11 @@ body {
 
 .word-list {
   position: relative;
-  float: right
+  display: flex;
+  justify-content: center;
+  float: left;
+}
 
+.list-items {
+  list-style: none;
 }
