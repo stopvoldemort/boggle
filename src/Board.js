@@ -7,8 +7,12 @@ const Board = ({ letters }) => {
   })
 
   return (
-    <div className="board">
-      {letterDivs}
+    <div className="container">
+      <div className="row">
+        <div className="board col-sm-8">
+          {letterDivs}
+        </div>
+      </div>
     </div>
   )
 

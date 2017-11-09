@@ -19,3 +19,9 @@ body {
   align-items: center;
   text-align: center;
 }
+
+.word-list {
+  position: relative;
+  float: right
+
+}

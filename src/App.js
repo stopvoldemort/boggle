@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Board from './board/Board.js'
-import WordContainer from './word/WordContainer'
+import GameContainer from './GameContainer'
 
 class App extends Component {
 
@@ -22,13 +21,10 @@ class App extends Component {
   }
 
   render() {
-
-
     return (
       <div className="App">
         <h1>Welcome to Boggle!</h1>
-        <Board letters={this.state.letters} />
-        <WordContainer />
+        <GameContainer letters={this.state.letters}/>
       </div>
     );
   }
