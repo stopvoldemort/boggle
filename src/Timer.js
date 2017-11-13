@@ -8,7 +8,8 @@ const Timer = ({ timer }) => {
   }
 
   const second = () => {
-    return (timer % 60)
+    let s = timer % 60;
+    return (s<10) ? `0${s}` : s
   }
 
   return(

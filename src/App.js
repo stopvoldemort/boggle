@@ -4,6 +4,7 @@ import GameContainer from './GameContainer'
 import { Route } from 'react-router-dom'
 import Rules from './Rules'
 import Home from './Home'
+import Navbar from './Navbar.js'
 
 
 class App extends Component {
@@ -11,7 +12,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Welcome to Boggle!</h1>
+        <Navbar />
+        <h1 className="welcome-banner">Welcome to Boggle!</h1>
         <Route exact path='/' component={Home}/>
         <Route exact path='/newgame' component={GameContainer}  />
         <Route exact path='/rules' component={Rules} />

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import WordList from './WordList.js'
 import Footer from './Footer.js'
 import Board from './Board.js'
+import dictionary from './dictionary.js'
 
 
 class GameContainer extends Component {
@@ -18,27 +19,39 @@ class GameContainer extends Component {
   }
 
   componentDidMount = () => {
-    this.boggleTimer()
+    this.createTimerInterval()
     this.fetchLetters()
       .then(json => this.setState({
         letters: json.setup
       }))
   }
 
-  boggleTimer = () => {
-    let currentTimer = setInterval(() => {
-      if (this.state.timer > 0) {
-        this.setState({timer: this.state.timer - 1})
-      } else {
-        console.log("times up!")
-        clearInterval(currentTimer)
-      }
-    }, 1000)
+  createTimerInterval = () => {
+     var intervalId = setInterval(this.timer, 1000);
+     this.setState({intervalId: intervalId});
+  }
+
+  removeTimerInterval = () => {
+    clearInterval(this.state.intervalId);
+  }
+
+  componentWillUnmount = () => {
+     this.removeTimerInterval()
+  }
+
+  timer = () => {
+    if (this.state.timer > 0) {
+      this.setState({ timer: this.state.timer -1 });
+    } else {
+      console.log("times up!")
+      clearInterval(this.state.intervalId)
+    }
   }
 
   handleWord = (word) => {
     if (!this.checkWordLength(word)) return false
     if (!this.checkDuplicateWord(word)) return false
+    if (!this.checkWordExists(word)) return false
     this.addWord(word)
   }
 
@@ -48,6 +61,10 @@ class GameContainer extends Component {
 
   checkWordLength = (word) => {
     return (word.length >= 3) ? true : false
+  }
+
+  checkWordExists = (word) => {
+    return (dictionary[word] ? true : false)
   }
 
   addWord = (word) => {
