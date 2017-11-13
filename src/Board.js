@@ -1,14 +1,17 @@
 import React from 'react'
+import Letter from './Letter'
 
 const Board = ({ letters }) => {
 
   const letterDivs = letters.split("").map((letter, idx) => {
-    return <div className="letter" key={idx}>{letter}</div>
+    return <Letter letter={letter} key={idx} x={idx%4} y={Math.floor(idx/4)}/>
   })
 
+
+
   return (
-    <div className="container">
-      <div className="board col-sm-8">
+    <div className="board-container">
+      <div className="board">
         {letterDivs}
       </div>
     </div>
