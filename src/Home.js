@@ -1,17 +1,23 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Home = () => (
+const Home = () => {
 
-  <div >
-    <div className="title-container">
-      <div class="neon">CLICK THE PICTURE </div>
-      <div class="flux">TO FUCKING PLAY </div>
-    </div>
+
+  return (
     <div>
-      <img className="image" src={require('./boggle-gif.gif')} alt="boggle-gif"/>
+      <div className="title-container">
+        <div className="neon">CLICK THE PICTURE </div>
+        <div className="flux">TO PLAY </div>
+      </div>
+      <div>
+        <Link to="/newgame" >
+          <img className="home-image" src={require('./boggle-gif.gif')} alt="boggle-gif"/>
+        </Link>
+      </div>
     </div>
-  </div>
+  )
 
-)
+}
 
 export default Home;

@@ -4,14 +4,19 @@ import Footer from './Footer.js'
 import Board from './Board.js'
 import dictionary from './dictionary.js'
 import Timer from './Timer.js'
+import StartButton from './StartButton.js'
+import GameEndPopUp from './GameEndPopUp.js'
 
 
 class GameContainer extends Component {
 
   state = {
     words: [],
-    timer: 90,
-    letters: ""
+    score: 0,
+    timer: 60,
+    letters: '                ',
+    isGameStarted: false,
+    gameHasEnded: false
   }
 
   fetchLetters = () => {
@@ -19,13 +24,45 @@ class GameContainer extends Component {
       .then(res => res.json())
   }
 
-  componentDidMount = () => {
-    this.createTimerInterval()
+  startGame = () => {
     this.fetchLetters()
       .then(json => this.setState({
-        letters: json.setup
-      }))
+        letters: json.setup,
+        isGameStarted: true,
+        gameHasEnded: false,
+        timer: 60,
+        words: [],
+        score: 0
+      }, () =>  {
+        document.getElementById("poop").focus()
+        this.createTimerInterval()
+      }
+    ))
   }
+
+  endGame = () => {
+    clearInterval(this.state.intervalId)
+    this.setState({ isGameStarted: false, gameHasEnded: true })
+  }
+
+  submitScore = (event) => {
+    const name = event.target.elements[0].value
+    const data = {}
+    data.score = this.state.score
+    data.name = name
+    this.postGameInfo(data)
+  }
+
+  postGameInfo = (data) => {
+    fetch("http://localhost:3000/rounds", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+  }
+
 
   createTimerInterval = () => {
      var intervalId = setInterval(this.timer, 1000);
@@ -44,8 +81,7 @@ class GameContainer extends Component {
     if (this.state.timer > 0) {
       this.setState({ timer: this.state.timer -1 });
     } else {
-      console.log("times up!")
-      clearInterval(this.state.intervalId)
+      this.endGame()
     }
   }
 
@@ -75,16 +111,27 @@ class GameContainer extends Component {
 
   addWord = (word) => {
     const newWordArray = [word, ...this.state.words]
-    this.setState({words: newWordArray})
+    const newScore = this.scoreWords(newWordArray)
+    this.setState({words: newWordArray, score: newScore})
+  }
+
+  scoreWords  = (wordArray) => {
+    return wordArray.reduce((score, currentWord) => {
+      return score += (currentWord.length - 2)
+    }, 0)
   }
 
   render() {
     return(
-      <div className="game-container-grid">
-        <Timer timer={this.props.timer} />
-        <Board letters={this.state.letters} />
-        <WordList words={this.state.words} />
-        <Footer handleWord={this.handleWord} letters={this.state.letters} words={this.state.words} timer={this.state.timer}/>
+      <div>
+        <div className="game-container-grid">
+          {this.state.isGameStarted ? <Timer timer={this.props.timer} /> : null}
+          <Board letters={this.state.letters} />
+          <WordList words={this.state.words} />
+          <Footer handleWord={this.handleWord} letters={this.state.letters} words={this.state.words} score={this.state.score} isGameStarted={this.state.isGameStarted}/>
+          {this.state.isGameStarted ? null : <StartButton startGame={this.startGame}/>}
+          {this.state.gameHasEnded ? <GameEndPopUp score={this.state.score} submitScore={this.submitScore}/> : null}
+        </div>
       </div>
     )
   }

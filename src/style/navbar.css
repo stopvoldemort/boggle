@@ -1,0 +1,22 @@
+.navbar-container {
+  background-color: #F7AE3E;
+  height: 34px;
+}
+
+.navbar-link {
+  width: 100px;
+  padding: 12px;
+  margin: 0 6px 6px;
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-link:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-active {
+  background-color: #E67A00;
+  text-decoration: none;
+}

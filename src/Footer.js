@@ -7,8 +7,8 @@ const Footer = (props) => {
 
   return(
     <div className="footer-container">
-      <WordForm handleWord={props.handleWord} letters={props.letters} />
-      <Score words={props.words}/>
+      <WordForm handleWord={props.handleWord} letters={props.letters} isGameStarted={props.isGameStarted}/>
+      <Score score={props.score}/>
     </div>
   )
 }

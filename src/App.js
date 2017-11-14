@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import './App.css';
+import './style/App.css';
 import GameContainer from './GameContainer'
 import { Route } from 'react-router-dom'
-import Rules from './Rules'
-import Home from './Home'
+import Rules from './Rules.js'
+import Home from './Home.js'
+import HighScore from './HighScore.js'
 import Navbar from './Navbar.js'
 
 
@@ -16,6 +17,7 @@ class App extends Component {
         <h1 className="welcome-banner">Welcome to Boggle!</h1>
         <Route exact path='/' component={Home}/>
         <Route exact path='/newgame' component={GameContainer}  />
+        <Route exact path='/highscores' component={HighScore}  />
         <Route exact path='/rules' component={Rules} />
       </div>
     );

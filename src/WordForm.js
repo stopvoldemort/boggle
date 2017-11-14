@@ -97,9 +97,9 @@ export default class WordForm extends React.Component {
   render = () => {
     return(
       <div className="input-form container">
-        <form onSubmit={this.handleSubmit}>
-          <input type='text' onChange={this.handleChange} value={this.state.input}/>
-          <button type='submit'>Enter</button>
+        <form onSubmit={this.handleSubmit} >
+          <input id="poop" type='text' onChange={this.handleChange} value={this.state.input} disabled={!this.props.isGameStarted} />
+          <button type='submit' className="btn btn-sm enter-button" disabled={!this.props.isGameStarted} >Enter</button>
         </form>
         {this.state.errorMessage ? <p className="alert alert-danger error-message">{this.state.errorMessage}</p> : "" }
       </div>

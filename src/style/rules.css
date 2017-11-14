@@ -1,0 +1,16 @@
+.rules-wrapper {
+  width: 100%;
+}
+
+.rules-container {
+  text-align: left;
+  margin: 15px;
+  width: 75%;
+  float: left;
+}
+
+.img-tag {
+  width: 20%;
+  float: right;
+  padding-right: 30px;
+}
