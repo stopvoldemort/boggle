@@ -14,7 +14,12 @@ const Timer = ({ timer }) => {
 
   return(
     <div className="boggle-timer">
-      Time Left: {minute()}: {second()}
+      <div id="hour-glass">
+        <div id="glass"></div>
+        <div id="sand-stream"></div>
+        <div id="top-sand"></div>
+        <div id="bottom-sand"></div>
+      </div>
     </div>
   )
 

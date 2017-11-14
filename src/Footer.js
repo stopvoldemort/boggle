@@ -7,7 +7,6 @@ const Footer = (props) => {
 
   return(
     <div className="footer-container">
-      <Timer timer={props.timer}/>
       <WordForm handleWord={props.handleWord} letters={props.letters} />
       <Score words={props.words}/>
     </div>

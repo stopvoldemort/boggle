@@ -3,6 +3,7 @@ import WordList from './WordList.js'
 import Footer from './Footer.js'
 import Board from './Board.js'
 import dictionary from './dictionary.js'
+import Timer from './Timer.js'
 
 
 class GameContainer extends Component {
@@ -64,7 +65,12 @@ class GameContainer extends Component {
   }
 
   checkWordExists = (word) => {
-    return (dictionary[word] ? true : false)
+    if (dictionary[word]) {
+      return true
+    } else if (dictionary[word+"ed"] || dictionary[word+"es"] || dictionary[word+"er"] || dictionary[word+"s"] || dictionary[word+"ing"]) {
+      return true
+    }
+    return false
   }
 
   addWord = (word) => {
@@ -75,8 +81,9 @@ class GameContainer extends Component {
   render() {
     return(
       <div className="game-container-grid">
+        <Timer timer={this.props.timer} />
         <Board letters={this.state.letters} />
-        <WordList words={this.state.words}/>
+        <WordList words={this.state.words} />
         <Footer handleWord={this.handleWord} letters={this.state.letters} words={this.state.words} timer={this.state.timer}/>
       </div>
     )
