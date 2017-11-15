@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-        <h1 className="welcome-banner">Welcome to Boggle!</h1>
+        <br /><br />
         <Route exact path='/' component={Home}/>
         <Route exact path='/newgame' component={GameContainer}  />
         <Route exact path='/highscores' component={HighScore}  />

@@ -89,7 +89,6 @@ class GameContainer extends Component {
     if (!this.checkWordLength(word)) return false
     if (!this.checkDuplicateWord(word)) return false
     if (!this.checkWordExists(word)) return false
-    this.addWord(word)
   }
 
   checkDuplicateWord = (word) => {
@@ -101,12 +100,23 @@ class GameContainer extends Component {
   }
 
   checkWordExists = (word) => {
-    if (dictionary[word]) {
-      return true
-    } else if (dictionary[word+"ed"] || dictionary[word+"es"] || dictionary[word+"er"] || dictionary[word+"s"] || dictionary[word+"ing"]) {
-      return true
-    }
-    return false
+    fetch("http://localhost:3000/rounds/checkword", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "word": word})
+    })
+      .then(res => res.json())
+      .then(json => {
+        json ? this.addWord(word) : false
+      })
+    // if (dictionary[word]) {
+    //   return true
+    // } else if (dictionary[word+"ed"] || dictionary[word+"es"] || dictionary[word+"er"] || dictionary[word+"s"] || dictionary[word+"ing"]) {
+    //   return true
+    // }
+    // return false
   }
 
   addWord = (word) => {

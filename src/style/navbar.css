@@ -1,14 +1,22 @@
 .navbar-container {
   background-color: #F7AE3E;
-  height: 34px;
 }
 
+
 .navbar-link {
-  width: 100px;
+  display: inline-block;
   padding: 12px;
-  margin: 0 6px 6px;
+  margin-right: 12px;
   text-decoration: none;
   color: white;
+}
+
+.boggle-header {
+  float: left;
+  font-family: 'Righteous', cursive;
+  font-size: 32px;
+  padding: 0;
+  margin-left: 10px;
 }
 
 .navbar-link:hover {
