@@ -110,12 +110,6 @@ class GameContainer extends Component {
       .then(json => {
         json ? this.addWord(word) : false
       })
-    // if (dictionary[word]) {
-    //   return true
-    // } else if (dictionary[word+"ed"] || dictionary[word+"es"] || dictionary[word+"er"] || dictionary[word+"s"] || dictionary[word+"ing"]) {
-    //   return true
-    // }
-    // return false
   }
 
   addWord = (word) => {
