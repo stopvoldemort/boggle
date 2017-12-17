@@ -17,6 +17,6 @@ Enjoy!
 * reactstrap
 * react-transition-group
 
-Many thanks to Joe Taylor and his CSS3 Hourglass: https://codepen.io/joekarma/pen/gjxyF!
+Many thanks to Joe Taylor and his CSS3 Hourglass! https://codepen.io/joekarma/pen/gjxyF
 
 This project was bootstrapped with Create React App.
