@@ -15,83 +15,79 @@ export default class WordForm extends React.Component {
 
   handleChange = (event) => {
     if (event.nativeEvent.inputType === "deleteContentBackward") {
-      this.setState({input: this.state.input.slice(0, -1)})
+      this.setState({
+        input: this.state.input.slice(0, -1),
+        errorMessage: ""
+      })
+    } else if (this.checkInput(event.target.value)) {
+      this.setState({
+        input: event.target.value,
+        errorMessage: ""
+      })
     } else {
-      const currentLetter = event.nativeEvent.data
-      const word = event.target.value
-      if (!this.state.input.length) {
-        this.checkIfFirstLetterIsOnBoard(currentLetter)
-      } else if (this.checkIfCurrentLetterIsAdjacentToLast(currentLetter)) {
-        this.setState({input: word, errorMessage: ""})
-      } else {
-        this.setState({
-          errorMessage: "That is not a valid letter!"
-        })
-      }
+      this.setState({
+        errorMessage: "That is not a valid letter!"
+      })
     }
   }
 
-  checkIfFirstLetterIsOnBoard = (letter) => {
-    if (!this.props.letters.includes(letter)) {
-      this.setState({errorMessage: "The letter isn't there!"})
-    } else {
-      this.setState({input: letter, errorMessage: ""})
-    }
-  }
-
-  checkIfCurrentLetterIsAdjacentToLast = (currentLetter) => {
-    const lastLetter = this.state.input.slice(-1)
-    const arrayOfPossibleLastLetterObjects = this.getLetterArraysByString(lastLetter)
-    for (let i = 0; i < arrayOfPossibleLastLetterObjects.length; i++) {
-      let lastLetterObj = arrayOfPossibleLastLetterObjects[i]
-      if (this.checkIfLetterIsAdjacentToAnotherLetter(currentLetter, lastLetterObj)) {
-        return true
+  checkInput = (input) => {
+    if (input.length === 1) return this.props.letters.includes(input)
+    const board = this.buildBoardObject()
+    for (let i = 0; i < Object.keys(board).length; i++) {
+      if (board[i] === input[0]) {
+        if (this.checkIfFollowingLettersAreValid(input, i, board)) {
+          return true
+        }
       }
     }
     return false
   }
 
-  checkIfLetterIsAdjacentToAnotherLetter = (currentLetter, comparisonLetterObj) => {
-    const surroundingLetterObjects = this.getSurroundingLetterObjects(comparisonLetterObj)
-    const surroundingLetters = surroundingLetterObjects.map(l => (l ? l.letter : ""))
-    return (surroundingLetters.includes(currentLetter)) ? true : false
+  checkIfFollowingLettersAreValid = (string, idx, board) => {
+    if (string.length === 1) return true
+    const remainingBoard = Object.assign({}, board)
+    delete remainingBoard[idx]
+    const nextLetter = string[1]
+    const moves = this.possibleMoves(idx)
+    for (let i = 0; i < moves.length; i++) {
+      if (remainingBoard[moves[i]] === nextLetter) {
+        let newString = string.slice(1)
+        let newIdx = moves[i]
+        return this.checkIfFollowingLettersAreValid(newString, newIdx, remainingBoard)
+      }
+    }
+    return false
   }
 
-  getSurroundingLetterObjects = (letterObj) => {
-    const x = letterObj.x
-    const y = letterObj.y
-    let arr = []
-    arr.push(this.getLetterByCoordinates(x-1, y-1))
-    arr.push(this.getLetterByCoordinates(x-1, y))
-    arr.push(this.getLetterByCoordinates(x-1, y+1))
-    arr.push(this.getLetterByCoordinates(x, y-1))
-    arr.push(this.getLetterByCoordinates(x, y+1))
-    arr.push(this.getLetterByCoordinates(x+1, y-1))
-    arr.push(this.getLetterByCoordinates(x+1, y))
-    arr.push(this.getLetterByCoordinates(x+1, y+1))
-    return arr;
+  rightEdge = (idx) => (idx % 4 === 0)
+  leftEdge = (idx) => (idx % 4 === 1)
+  top = (idx) => (idx <= 4)
+  bottom = (idx) => (idx >= 13)
+
+  possibleMoves = (idx) => {
+    const moves = []
+    if (!this.rightEdge(idx)) moves.push(idx + 1)
+    if (!this.rightEdge(idx) && !this.top(idx)) moves.push(idx - 3)
+    if (!this.top(idx)) moves.push(idx - 4)
+    if (!this.leftEdge(idx) && !this.top(idx)) moves.push(idx - 5)
+    if (!this.leftEdge(idx)) moves.push(idx - 1)
+    if (!this.leftEdge(idx) && !this.bottom(idx)) moves.push(idx + 3)
+    if (!this.bottom(idx)) moves.push(idx + 4)
+    if (!this.rightEdge(idx) && !this.bottom(idx)) moves.push(idx + 5)
+    return moves
   }
 
-  getLetterByCoordinates = (x,y) => {
-    return this.letterObjects().find((obj) => (obj.x === x && obj.y === y))
+  buildBoardObject = () => {
+    const letters = this.props.letters
+    if (letters[0] !== " ") {
+      const arr = letters.split("")
+      return arr.reduce((agg, l, i) => {
+        agg[i + 1] = l
+        return agg
+      }, {})
+    }
   }
-
-  getLetterArraysByString = (letter) => {
-    return this.letterObjects().filter((obj) => {
-      return obj.letter === letter
-    })
-  }
-
-  letterObjects = () => {
-    return this.props.letters.split("").map((letter, idx) => {
-      const obj = {}
-      obj.letter = letter
-      obj.x = (idx%4)
-      obj.y = (Math.floor(idx/4))
-      return obj;
-    })
-  }
-
 
 
   render = () => {

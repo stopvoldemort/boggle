@@ -1,6 +1,6 @@
 # Boggle
 
-This is the react frontend for Boggle, the classic word game. It was made as a project for the Flatiron School, completed twelve weeks into the software engineering program.
+This is the React frontend for Boggle, the classic word game. It was made as a project for the Flatiron School, completed twelve weeks into the software engineering program.
 
 Demonstration: https://youtu.be/Oe4YYsPIo08
 

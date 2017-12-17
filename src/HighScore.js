@@ -19,7 +19,7 @@ class HighScore extends Component {
 
   createDivs = (highScores) => {
     return highScores.map((round, idx) => {
-      return <ScoreRow round={round} />
+      return <ScoreRow key={idx} round={round} />
     })
   }
 
