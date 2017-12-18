@@ -34,7 +34,8 @@ export default class WordForm extends React.Component {
   checkInput = (input) => {
     if (input.length === 1) return this.props.letters.includes(input)
     const board = this.buildBoardObject()
-    for (let i = 1; i <= Object.keys(board).length; i++) {
+    console.log(input, board)
+    for (let i = 0; i <= Object.keys(board).length; i++) {
       if (board[i] === input[0]) {
         if (this.checkIfFollowingLettersAreValid(input, i, board)) {
           return true
@@ -50,6 +51,7 @@ export default class WordForm extends React.Component {
     delete remainingBoard[idx]
     const nextLetter = string[1]
     const moves = this.possibleMoves(idx)
+    console.log(string, nextLetter, moves, remainingBoard)
     for (let i = 0; i < moves.length; i++) {
       if (remainingBoard[moves[i]] === nextLetter) {
         let newString = string.slice(1)
@@ -68,13 +70,13 @@ export default class WordForm extends React.Component {
   possibleMoves = (idx) => {
     const moves = []
     if (!this.rightEdge(idx)) moves.push(idx + 1)
-    if (!(this.rightEdge(idx) && this.top(idx))) moves.push(idx - 3)
+    if (!this.rightEdge(idx) && !this.top(idx)) moves.push(idx - 3)
     if (!this.top(idx)) moves.push(idx - 4)
-    if (!(this.leftEdge(idx) && this.top(idx))) moves.push(idx - 5)
+    if (!this.leftEdge(idx) && !this.top(idx)) moves.push(idx - 5)
     if (!this.leftEdge(idx)) moves.push(idx - 1)
-    if (!(this.leftEdge(idx) && !this.bottom(idx))) moves.push(idx + 3)
+    if (!this.leftEdge(idx) && !this.bottom(idx)) moves.push(idx + 3)
     if (!this.bottom(idx)) moves.push(idx + 4)
-    if (!(this.rightEdge(idx) && this.bottom(idx))) moves.push(idx + 5)
+    if (!this.rightEdge(idx) && !this.bottom(idx)) moves.push(idx + 5)
     return moves
   }
 
