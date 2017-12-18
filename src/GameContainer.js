@@ -111,6 +111,7 @@ class GameContainer extends Component {
     })
       .then(res => res.json())
       .then(json => {
+        console.log(json)
         json ? this.addWord(word) : false
       })
   }
