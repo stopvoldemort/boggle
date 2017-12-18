@@ -6,6 +6,8 @@ import Timer from './Timer.js'
 import StartButton from './StartButton.js'
 import GameEndPopUp from './GameEndPopUp.js'
 
+const BASE_URL = "https://boggle-backend.herokuapp.com/"
+
 
 class GameContainer extends Component {
 
@@ -19,7 +21,7 @@ class GameContainer extends Component {
   }
 
   fetchLetters = () => {
-    return fetch("http://localhost:3000/rounds/new")
+    return fetch(BASE_URL + "/rounds/new")
       .then(res => res.json())
   }
 
@@ -53,7 +55,7 @@ class GameContainer extends Component {
   }
 
   postGameInfo = (data) => {
-    fetch("http://localhost:3000/rounds", {
+    fetch(BASE_URL + "/rounds", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -99,7 +101,7 @@ class GameContainer extends Component {
   }
 
   checkWordExists = (word) => {
-    fetch("http://localhost:3000/rounds/checkword", {
+    fetch(BASE_URL + "/rounds/checkword", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'

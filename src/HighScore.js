@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import ScoreRow from './ScoreRow.js'
 
+const BASE_URL = "https://boggle-backend.herokuapp.com/"
+
 class HighScore extends Component {
 
   state = {
@@ -8,7 +10,7 @@ class HighScore extends Component {
   }
 
   componentDidMount = () => {
-    fetch("http://localhost:3000/rounds/highscores")
+    fetch(BASE_URL + "/rounds/highscores")
       .then(res => res.json())
       .then(highScores => {
         const renderedScores = this.createDivs(highScores)
