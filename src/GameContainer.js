@@ -6,7 +6,7 @@ import Timer from './Timer.js'
 import StartButton from './StartButton.js'
 import GameEndPopUp from './GameEndPopUp.js'
 
-const BASE_URL = "https://boggle-backend.herokuapp.com/"
+const BASE_URL = "https://boggle-backend.herokuapp.com"
 
 
 class GameContainer extends Component {
@@ -104,6 +104,7 @@ class GameContainer extends Component {
     fetch(BASE_URL + "/rounds/checkword", {
       method: "POST",
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ "word": word})
