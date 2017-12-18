@@ -7,6 +7,7 @@ import StartButton from './StartButton.js'
 import GameEndPopUp from './GameEndPopUp.js'
 
 const BASE_URL = "https://boggle-backend.herokuapp.com"
+// const BASE_URL = "http://localhost:3000/"
 
 
 class GameContainer extends Component {

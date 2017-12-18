@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import ScoreRow from './ScoreRow.js'
 
+// const BASE_URL = "http://localhost:3000/"
 const BASE_URL = "https://boggle-backend.herokuapp.com"
+
 
 class HighScore extends Component {
 
