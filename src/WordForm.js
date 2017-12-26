@@ -51,12 +51,12 @@ export default class WordForm extends React.Component {
     delete remainingBoard[idx]
     const nextLetter = string[1]
     const moves = this.possibleMoves(idx)
-    console.log(string, nextLetter, moves, remainingBoard)
     for (let i = 0; i < moves.length; i++) {
       if (remainingBoard[moves[i]] === nextLetter) {
         let newString = string.slice(1)
         let newIdx = moves[i]
-        return this.checkIfFollowingLettersAreValid(newString, newIdx, remainingBoard)
+        const result = this.checkIfFollowingLettersAreValid(newString, newIdx, remainingBoard)
+        if (result) return result
       }
     }
     return false
